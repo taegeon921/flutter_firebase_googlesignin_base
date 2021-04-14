@@ -3,8 +3,8 @@ import 'dart:convert' show utf8;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:flutter_app_esp32_sensor/widgets.dart';
-import 'package:flutter_app_esp32_sensor/main.dart';
+import 'widgets.dart';
+import 'Search.dart';
 
 class SensorPage extends StatefulWidget {
   const SensorPage({Key key, this.device}) : super(key: key);
@@ -21,8 +21,7 @@ class _SensorPageState extends State<SensorPage> {
   bool isReady;
   Stream<List<int>> stream;
 
-  var tempValue = '?';
-  var humidityValue = '?';
+
   BluetoothCharacteristic targetCharacteristic;
 
   @override
@@ -169,11 +168,6 @@ class _SensorPageState extends State<SensorPage> {
                             ConnectionState.active) {
                           //var currentValue = _dataParser(snapshot.data);
 
-                           tempValue = _dataParser(snapshot.data).split("0,")[0];
-                           humidityValue = _dataParser(snapshot.data).split(",")[1];
-
-                              print("tempValue: ${tempValue}");
-                              print("humidityValue: ${humidityValue}");
 
 
 
@@ -188,82 +182,8 @@ class _SensorPageState extends State<SensorPage> {
                                 //crossAxisAlignment: CrossAxisAlignment.center,
 
                                 children: <Widget>[
-
                                   Card(
-                                    child: Container(
-                                      width: 150,
-                                      height: 200,
-                                      child: Column(
-                                        //crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Image.asset('images/temperature.png'),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            "온도",
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                          ),
-                                          Expanded(
-                                            child: Container(),
-                                          ),
-                                          Text(
-                                            tempValue+"'C",
-                                            style: TextStyle(fontSize: 30),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Card(
-                                    child: Container(
-                                      width: 150,
-                                      height: 200,
-                                      child: Column(
-                                        //crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: Image.asset('images/humidity.png'),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            "습도",
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                          ),
-                                          Expanded(
-                                            child: Container(),
-                                          ),
-                                          Text(
-                                            humidityValue+"%",
-                                            style: TextStyle(fontSize: 30),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-
-                        Card(
-                        child:Container(
+                                       child:Container(
                                         child: targetCharacteristic == null
                                             ? Center(
                                           child: Text(

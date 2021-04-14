@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:authentification/Start.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'Search.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -52,28 +53,53 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+
         body: Container(
+
       child: !isloggedin
           ? CircularProgressIndicator()
           : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              //crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 40.0),
-                Container(
-                  height: 300,
-                  child: Image(
-                    image: AssetImage("images/welcome.png"),
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    " ${user.displayName}님은 ${user.email}로 로그인하셨습니다.",
-                    style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                ),
+
+
+                SizedBox(height: 40.0, width: 400.0),
+
                 RaisedButton(
-                  padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+
+                  onPressed: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                      return FlutterBlueApp();
+                  })),
+                  child: Text('디바이스 검색',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold)),
+                  color: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+
+                RaisedButton(
+
+                  onPressed: (signOut),
+                  child: Text('등록된 디바이스',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold)),
+                  color: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+
+                RaisedButton(
+
                   onPressed: signOut,
                   child: Text('로그아웃',
                       style: TextStyle(
